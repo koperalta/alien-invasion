@@ -19,7 +19,7 @@ class Ship(Sprite) :
         self.screen_rect = ai_game.screen.get_rect()
         
         # Load the ship image
-        self.image = pygame.image.load("images/ship.bmp")
+        self.image = pygame.image.load("../assets/images/ship.bmp")
         
         # Gets a rectangle around the ship image, which helps us know where and how to draw it.
         self.rect = self.image.get_rect()
