@@ -326,7 +326,7 @@ class AlienInvasion :
     def _quit_game(self) :
         """ Exits the game"""
         # Check whether the current high score is greater than the high score at the start of the game
-        if self.stats.high_score > self.initial_high_score :
+        if (self.stats.high_score > self.initial_high_score) and not self.game_active :
             self._update_high_score()
         
         sys.exit()
