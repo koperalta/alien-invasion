@@ -10,7 +10,7 @@ class GameStats :
         self.reset_stats()
         
         # High score should never be reset
-        path = Path("json_files/high_score.json")
+        path = Path("src/json_files/high_score.json")
         
         # Reads the json formated data from high_score.json into the variable 'self.high_score'
         contents = path.read_text()

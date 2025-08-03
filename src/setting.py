@@ -16,6 +16,7 @@ class Settings :
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
         self.bullets_allowed = 30
+        self.bullet_disappear_after_hit = True
         
         # Alien setting
         self.fleet_drop_speed = 10.0
@@ -32,7 +33,7 @@ class Settings :
         """ Initializes settings that change throughout the game. """
         self.ship_speed = 10
         self.bullet_speed = 10.0
-        self.alien_speed = 3
+        self.alien_speed = 5.0
         self.alien_points = 50
         self.fleet_direction = 1 # 1 represents right; -1 represent left
     

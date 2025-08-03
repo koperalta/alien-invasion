@@ -277,7 +277,8 @@ class AlienInvasion :
         """ Respond to bullet-alien collision"""
         # Check for any bullets that have hit aliens.
         # If so, get rid of the bullet and alien.
-        collision = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        collision = pygame.sprite.groupcollide(self.bullets, self.aliens,
+                                                self.settings.bullet_disappear_after_hit, True)
         
         if collision :
             for aliens in collision.values() :
@@ -337,7 +338,7 @@ class AlienInvasion :
         contents = json.dumps(self.stats.high_score)
         
         # Creates a path to high_score.json then dumps the formated text into it
-        path = Path("json_files/high_score.json")
+        path = Path("src/json_files/high_score.json")
         path.write_text(contents)
 
 
