@@ -60,6 +60,9 @@ class AlienInvasion :
         # Sets the active state of an Alien Invasion game
         self.game_active = False
         
+        # Shooting flag; start not firing
+        self.shooting = False
+        
         # Make the Play Button
         self.play_button = Button(self, "Play")
         
@@ -71,6 +74,15 @@ class AlienInvasion :
         while True :
             # Watch the keyboard and mouse events.
             self._check_events()
+            
+            # Will continuously fire bullets while self.shooting is set to True
+            self._fire_bullet()
+            
+            # Checks if the ship can fire a bullet :
+            self._bullet_cooldown()
+            
+            if self.settings.bullet_cooldown > 0 :
+                self.settings.bullet_cooldown -= 1
             
             if self.game_active :
                 # Updates the 'moving' attribute of the ship
@@ -161,9 +173,9 @@ class AlienInvasion :
         elif event.key == pygame.K_p and not self.game_active :
             self._start_game()
         
-        # If the player press 'SPACE', the ship will fire a bullet
+        # If the player holds 'SPACE', the ship will start firing bullets
         elif event.key == pygame.K_SPACE :
-            self._fire_bullet()
+            self.shooting = True
     
     def _check_keyup_events(self, event) :
         # If the player lets go the right arrow key
@@ -173,12 +185,22 @@ class AlienInvasion :
         # If the player lets go the left arrow key
         elif event.key == pygame.K_LEFT :
             self.ship.moving_left = False
+        
+        # If the player lets go of 'SPACE, the ship will stop firing bullets
+        elif event.key == pygame.K_SPACE :
+            self.shooting = False
     
     def _fire_bullet(self) :
         """ Create a new bullet and add it to the bullets group """
-        if len(self.bullets) < self.settings.bullets_allowed :
-            new_bullet = Bullet(self)
-            self.bullets.add(new_bullet)
+        if self.shooting and self.settings.bullet_cooldown == 0:
+            if len(self.bullets) < self.settings.bullets_allowed :
+                new_bullet = Bullet(self)
+                self.bullets.add(new_bullet)
+                self.settings.bullet_cooldown = 15
+    
+    def _bullet_cooldown(self) :
+        if self.settings.bullet_cooldown > 0 :
+                self.settings.bullet_cooldown -= 1
     
     def _update_bullets(self) :
         """ Update position of bullets and get rid of old bullets """
